@@ -18,11 +18,7 @@ if (env === 'commonjs' || env === 'es') {
       ['flow-react-proptypes', {deadCode: true, useESModules: true}],
       ['transform-react-remove-prop-types', {mode: 'wrap'}],
     ],
-    presets: [
-      ['@babel/preset-env', {modules: false}],
-      '@babel/preset-react',
-      '@babel/preset-flow',
-    ],
+    presets: ['@babel/preset-react', '@babel/preset-flow'],
   };
 
   if (env === 'commonjs') {
