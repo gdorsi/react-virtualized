@@ -117,21 +117,24 @@ export default class WindowScroller extends React.PureComponent<Props, State> {
       this._positionFromLeft = offset.left;
     }
 
-    const dimensions = getDimensions(scrollElement, this.props);
-    if (height !== dimensions.height || width !== dimensions.width) {
-      this.setState({
-        height: dimensions.height,
-        width: dimensions.width,
-      });
-      onResize({
-        height: dimensions.height,
-        width: dimensions.width,
-      });
-    }
+    // Checking thisNode is more reliable than this._isMounted
+    if (thisNode) {
+      const dimensions = getDimensions(scrollElement, this.props);
+      if (height !== dimensions.height || width !== dimensions.width) {
+        this.setState({
+          height: dimensions.height,
+          width: dimensions.width,
+        });
+        onResize({
+          height: dimensions.height,
+          width: dimensions.width,
+        });
+      }
 
-    if (this.props.updateScrollTopOnUpdatePosition === true) {
-      this.__handleWindowScrollEvent();
-      this.__resetIsScrolling();
+      if (this.props.updateScrollTopOnUpdatePosition === true) {
+        this.__handleWindowScrollEvent();
+        this.__resetIsScrolling();
+      }
     }
   }
 
