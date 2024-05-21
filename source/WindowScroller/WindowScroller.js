@@ -1,7 +1,6 @@
 // @flow
 
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
 import {
   registerScrollListener,
   unregisterScrollListener,
@@ -74,13 +73,6 @@ type DetectElementResize = {
 export const IS_SCROLLING_TIMEOUT = 150;
 
 const getWindow = () => (typeof window !== 'undefined' ? window : undefined);
-const safeFindDOMNode = component => {
-  try {
-    return ReactDOM.findDOMNode(component);
-  } catch (err) {}
-
-  return null;
-};
 
 export default class WindowScroller extends React.PureComponent<Props, State> {
   static defaultProps = {
@@ -110,7 +102,7 @@ export default class WindowScroller extends React.PureComponent<Props, State> {
     const {onResize} = this.props;
     const {height, width} = this.state;
 
-    const thisNode = this._child || safeFindDOMNode(this);
+    const thisNode = this._child;
     if (thisNode instanceof Element && scrollElement) {
       const offset = getPositionOffset(thisNode, scrollElement);
       this._positionFromTop = offset.top;
